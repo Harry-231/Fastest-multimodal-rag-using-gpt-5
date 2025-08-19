@@ -7,7 +7,7 @@
   [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
   [![LlamaIndex](https://img.shields.io/badge/LlamaIndex-Latest-green.svg)](https://github.com/jerryjliu/llama_index)
   [![Qdrant](https://img.shields.io/badge/Qdrant-Vector_DB-purple.svg)](https://qdrant.tech/)
-  [![GPT-4](https://img.shields.io/badge/GPT--4o-Vision-red.svg)](https://openai.com/)
+  [![GPT-5](https://img.shields.io/badge/GPT--5-Vision-red.svg)](https://openai.com/)
   [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
   [![Performance](https://img.shields.io/badge/Speed-<100ms-brightgreen.svg)]()
   [![OCR Support](https://img.shields.io/badge/OCR-Supported-orange.svg)]()
@@ -70,7 +70,7 @@ graph LR
         Tables -->|Index| VDB
         Images -->|Store| VDB
         VDB -->|🎯 Retrieve| Context[Context]
-        Context -->|🤖| GPT[GPT-4o]
+        Context -->|🤖| GPT[GPT-5]
         GPT -->|✨| Answer[Answer]
     end
     
@@ -103,7 +103,7 @@ graph LR
 | **OCR** | Tesseract | ![Tesseract](https://img.shields.io/badge/Tesseract-OCR-green) | Scan support |
 | **Vector DB** | Qdrant | ![Qdrant](https://img.shields.io/badge/Qdrant-Fast-purple) | Similarity search |
 | **Framework** | LlamaIndex | ![LlamaIndex](https://img.shields.io/badge/LlamaIndex-RAG-orange) | Orchestration |
-| **LLM** | GPT-4o | ![GPT-4o](https://img.shields.io/badge/GPT--4o-Vision-red) | Intelligence |
+| **LLM** | GPT-5 | ![GPT-5](https://img.shields.io/badge/GPT--5-Vision-red) | Intelligence |
 
 </div>
 
@@ -151,7 +151,7 @@ Content ──➤ [🔢 Embed] ──➤ [📍 Index] ──➤ [💾 Store] ─
 ```
 Query ──➤ [🔍 Search] ──➤ [📚 Retrieve] ──➤ [🤖 Generate] ──➤ [✨ Response]
           ↓               ↓                ↓                 ↓
-       [Semantic]      [Top-K]          [GPT-4o]         [<1sec]
+       [Semantic]      [Top-K]          [GPT-5]         [<1sec]
 ```
 
 </div>
@@ -180,29 +180,6 @@ Query ──➤ [🔍 Search] ──➤ [📚 Retrieve] ──➤ [🤖 Generate
 | Figures | Charts | Prescriptions | Schematics |
 
 </div>
-
-## 🔧 **Advanced Configuration**
-
-```python
-# 🎛️ Fine-tune for your needs
-config = {
-    "parser": {
-        "use_ocr": True,           # 🔍 Enable for scans
-        "ocr_lang": "eng+fra",     # 🌍 Multi-language
-        "save_markdown": True      # 📝 Export format
-    },
-    "indexing": {
-        "chunk_size": 512,         # 📏 Optimal chunks
-        "overlap": 50,             # 🔗 Context preserve
-        "batch_size": 100          # ⚡ Fast processing
-    },
-    "retrieval": {
-        "top_k": 5,                # 🎯 Result count
-        "threshold": 0.7,          # 📊 Similarity min
-        "rerank": True             # 🏆 Best results
-    }
-}
-```
 
 ## 📁 **Project Structure**
 
