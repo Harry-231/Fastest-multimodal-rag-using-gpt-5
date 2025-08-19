@@ -1,225 +1,215 @@
-# 🚀 **Multimodal RAG System** with Qdrant & LlamaIndex
+# 🚀 Modular RAG with Qdrant, GPT-5, and PyMuPDF
 
-<div align="center">
-  
-  ## ⚡ Lightning-Fast PDF Intelligence System ⚡
-  
-  [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-  [![LlamaIndex](https://img.shields.io/badge/LlamaIndex-Latest-green.svg)](https://github.com/jerryjliu/llama_index)
-  [![Qdrant](https://img.shields.io/badge/Qdrant-Vector_DB-purple.svg)](https://qdrant.tech/)
-  [![GPT-5](https://img.shields.io/badge/GPT--5-Vision-red.svg)](https://openai.com/)
-  [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-  [![Performance](https://img.shields.io/badge/Speed-<100ms-brightgreen.svg)]()
-  [![OCR Support](https://img.shields.io/badge/OCR-Supported-orange.svg)]()
-  
-  ### 🎯 **Universal PDF Processing** | 📊 **Multimodal RAG** | ⚡ **Sub-second Retrieval**
-  
-  <img src="https://img.shields.io/badge/Status-Production_Ready-success.svg" alt="Status" />
-  <img src="https://img.shields.io/badge/Maintenance-Active-blue.svg" alt="Maintenance" />
-  <img src="https://img.shields.io/badge/Coverage-95%25-green.svg" alt="Coverage" />
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
+[![LlamaIndex](https://img.shields.io/badge/LlamaIndex-Latest-green.svg)](https://llamaindex.ai)
+[![Qdrant](https://img.shields.io/badge/Qdrant-Vector%20DB-red.svg)](https://qdrant.tech)
+[![GPT-5](https://img.shields.io/badge/GPT--5-OpenAI-orange.svg)](https://openai.com)
+[![PyMuPDF](https://img.shields.io/badge/PyMuPDF-PDF%20Parser-yellow.svg)](https://pymupdf.readthedocs.io)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
-</div>
+A **lightning-fast**, **multi-modal** RAG (Retrieval-Augmented Generation) system that can process any PDF document including scanned images with OCR support. Built with cutting-edge technologies for maximum performance and ease of use.
 
----
+## ✨ Key Features
 
-## ✨ **Key Features**
+🔥 **Blazing Fast** - Optimized vector storage with Qdrant for sub-second retrieval  
+🧠 **GPT-5 Powered** - Latest OpenAI model for superior understanding and generation  
+📄 **Universal PDF Support** - Works with all PDFs including scanned documents via OCR  
+🎯 **Multi-Modal** - Handles text, tables, and images seamlessly  
+⚡ **Simple Setup** - Get running in minutes with minimal configuration  
+🔧 **Modular Design** - Easy to extend and customize for specific needs
 
-<table>
-<tr>
-<td width="50%">
-
-### 🎯 **Core Capabilities**
-- 📄 **Universal PDF Support** - Digital & Scanned
-- 🖼️ **True Multimodal** - Text, Tables, Images
-- ⚡ **Lightning Fast** - <100ms retrieval
-- 🔧 **Plug & Play** - 3 lines to start
-
-</td>
-<td width="50%">
-
-### 🚀 **Performance**
-- 📈 **2-5 pages/second** processing
-- 💾 **1M+ documents** scalable
-- 🎯 **95%+ accuracy** on benchmarks
-- 🔄 **Real-time** query responses
-
-</td>
-</tr>
-</table>
-
-## 🌟 **Animated Workflow**
-
-<div align="center">
+## 🏗️ Architecture Overview
 
 ```mermaid
-graph LR
-    subgraph "📥 Input"
-        PDF[📄 PDF]
-    end
+graph TB
+    PDF[📄 PDF Document] --> Parser[🔧 PyMuPDF Parser]
     
-    subgraph "⚙️ Processing Pipeline"
-        PDF -->|🔄 Parse| Parser{PyMuPDF}
-        Parser -->|📝| Text[Text]
-        Parser -->|📊| Tables[Tables]
-        Parser -->|🖼️| Images[Images]
-        Parser -.->|🔍| OCR[OCR]
-    end
+    Parser --> Text[📝 Text Extraction]
+    Parser --> Tables[📊 Table Detection]  
+    Parser --> Images[🖼️ Image Extraction]
+    Parser --> OCR[👁️ OCR Processing]
     
-    subgraph "🧠 Intelligence Layer"
-        Text -->|Embed| VDB[(Qdrant)]
-        Tables -->|Index| VDB
-        Images -->|Store| VDB
-        VDB -->|🎯 Retrieve| Context[Context]
-        Context -->|🤖| GPT[GPT-5]
-        GPT -->|✨| Answer[Answer]
-    end
+    Text --> TextStore[(📚 Text Vector Store)]
+    Tables --> TableStore[(🗃️ Table Vector Store)]
+    Images --> ImageStore[(🎨 Image Vector Store)]
     
-    style PDF fill:#ff6b6b,stroke:#fff,stroke-width:3px,color:#fff
-    style Answer fill:#51cf66,stroke:#fff,stroke-width:3px,color:#fff
-    style VDB fill:#4ecdc4,stroke:#fff,stroke-width:3px,color:#fff
-    style GPT fill:#845ef7,stroke:#fff,stroke-width:3px,color:#fff
+    TextStore --> Qdrant[(⚡ Qdrant Database)]
+    TableStore --> Qdrant
+    ImageStore --> Qdrant
     
-    classDef processing fill:#ffd43b,stroke:#333,stroke-width:2px
-    class Parser,Text,Tables,Images,OCR processing
+    Query[❓ User Query] --> Retriever[🔍 Multi-Modal Retriever]
+    Retriever --> Qdrant
+    Qdrant --> Context[📋 Retrieved Context]
+    Context --> GPT5[🤖 GPT-5]
+    GPT5 --> Response[💬 Final Answer]
+    
+    classDef primary fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef storage fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef process fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    
+    class PDF,Query primary
+    class Qdrant,TextStore,TableStore,ImageStore storage
+    class Parser,Retriever,GPT5 process
 ```
 
-### 📊 **Processing Flow Animation**
+## 🛠️ Tech Stack
 
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **PDF Processing** | PyMuPDF + Tesseract | Fast text, table, and image extraction with OCR |
+| **Vector Database** | Qdrant | High-performance vector storage and similarity search |
+| **LLM** | GPT-5 (OpenAI) | Advanced language understanding and generation |
+| **Framework** | LlamaIndex | Multi-modal RAG orchestration and indexing |
+| **OCR Engine** | Tesseract | Optical character recognition for scanned documents |
+
+## 📊 Workflow Diagram
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant P as PDF Parser
+    participant Q as Qdrant DB
+    participant L as LlamaIndex
+    participant G as GPT-5
+    
+    Note over U,G: Document Processing Phase
+    U->>P: Upload PDF Document
+    P->>P: Extract Text, Tables, Images
+    P->>P: Apply OCR (if needed)
+    P->>Q: Store in Vector Collections
+    Q-->>P: Confirm Storage
+    
+    Note over U,G: Query Phase
+    U->>L: Submit Query
+    L->>Q: Retrieve Relevant Context
+    Q-->>L: Return Similar Vectors
+    L->>G: Send Context + Query
+    G-->>L: Generate Response
+    L-->>U: Return Final Answer
+    
+    Note over U,G: ⚡ Sub-second Response Time
 ```
-📄 PDF Input ──➤ 🔄 Parsing ──➤ 🎯 Extraction ──➤ 💾 Indexing ──➤ 🤖 Query ──➤ ✨ Response
-     ↓               ↓              ↓                ↓              ↓           ↓
-  [Upload]      [Split]       [Multimodal]      [Vectors]      [RAG]      [<1sec]
-```
 
-</div>
+## 🚀 Quick Start
 
-## 🛠️ **Tech Stack**
-
-<div align="center">
-
-| Component | Technology | Badge | Purpose |
-|:---------:|:----------:|:-----:|:-------:|
-| **Parser** | PyMuPDF | ![PyMuPDF](https://img.shields.io/badge/PyMuPDF-Fast-blue) | Extract content |
-| **OCR** | Tesseract | ![Tesseract](https://img.shields.io/badge/Tesseract-OCR-green) | Scan support |
-| **Vector DB** | Qdrant | ![Qdrant](https://img.shields.io/badge/Qdrant-Fast-purple) | Similarity search |
-| **Framework** | LlamaIndex | ![LlamaIndex](https://img.shields.io/badge/LlamaIndex-RAG-orange) | Orchestration |
-| **LLM** | GPT-5 | ![GPT-5](https://img.shields.io/badge/GPT--5-Vision-red) | Intelligence |
-
-</div>
-
-## 📋 **Quick Installation**
+### Installation
 
 ```bash
-# 🚀 One-line install
-pip install pymupdf pytesseract qdrant-client llama-index
-
-# 🎯 Clone & Run
-git clone https://github.com/yourusername/multimodal-rag.git
-cd multimodal-rag && python setup.py
+pip install pymupdf qdrant-client llama-index pytesseract pillow
 ```
 
-## ⚡ **Lightning Quick Start**
+### Basic Usage
 
 ```python
-# 🎯 Just 3 lines to intelligence!
-from rag_service import MultimodalRAG
+from rag_system import PDFParser, RAGEngine
 
-rag = MultimodalRAG()                    # 1️⃣ Initialize
-rag.index("document.pdf")                # 2️⃣ Index
-answer = rag.query("Key findings?")      # 3️⃣ Query
+# Initialize the parser
+parser = PDFParser(
+    output_dir="extracted",
+    save_as_markdown=True,
+    use_ocr=False  # Set True for scanned PDFs
+)
+
+# Process your PDF
+results = parser.parse_pdf("your_document.pdf")
+
+# Create RAG engine
+engine = RAGEngine()
+engine.setup_vector_stores()
+engine.index_documents(results)
+
+# Query the system
+response = engine.query("What are the main findings in the paper?")
+print(response)
 ```
 
-## 🔄 **Detailed Processing Pipeline**
+## 💡 Why This RAG System?
 
-<div align="center">
+### 🔥 **Performance**
+- **Sub-second retrieval** with Qdrant's optimized vector search
+- **Parallel processing** of PDF components (text, tables, images)
+- **Efficient memory usage** with modular document handling
 
-### 📥 **Stage 1: Intelligent Parsing**
-```
-PDF ──➤ [🔍 Detect Type] ──➤ [📝 Text | 📊 Tables | 🖼️ Images] ──➤ [✅ Validated Output]
-         ↓                     ↓         ↓          ↓
-      [Digital/Scan]      [Preserve]  [Extract]  [Capture]
-```
+### 🎯 **Accuracy**
+- **GPT-5 integration** for state-of-the-art language understanding
+- **Multi-modal context** combining text, visual, and tabular data
+- **Semantic search** beyond keyword matching
 
-### 🧠 **Stage 2: Vector Indexing**
-```
-Content ──➤ [🔢 Embed] ──➤ [📍 Index] ──➤ [💾 Store] ──➤ [⚡ Optimize]
-            ↓              ↓             ↓              ↓
-         [OpenAI]       [HNSW]       [Qdrant]      [Cache]
-```
+### 🛠️ **Versatility**
+- **Works with any PDF** - digital or scanned
+- **OCR support** for image-based documents
+- **Table detection** preserves structured data
+- **Image analysis** for visual content understanding
 
-### 🎯 **Stage 3: RAG Generation**
-```
-Query ──➤ [🔍 Search] ──➤ [📚 Retrieve] ──➤ [🤖 Generate] ──➤ [✨ Response]
-          ↓               ↓                ↓                 ↓
-       [Semantic]      [Top-K]          [GPT-5]         [<1sec]
-```
+### ⚡ **Simplicity**
+- **Minimal setup** required
+- **Plug-and-play** architecture
+- **Clear separation** of concerns
+- **Easy to extend** and customize
 
-</div>
-
-## 📊 **Performance Benchmarks**
-
-<div align="center">
-
-| Metric | Score | Badge |
-|:------:|:-----:|:-----:|
-| **Processing Speed** | 2-5 pages/sec | ![Speed](https://img.shields.io/badge/Speed-Fast-brightgreen) |
-| **Query Latency** | <100ms | ![Latency](https://img.shields.io/badge/Latency-Low-green) |
-| **Accuracy** | 95%+ | ![Accuracy](https://img.shields.io/badge/Accuracy-95%25-blue) |
-| **Scalability** | 1M+ docs | ![Scale](https://img.shields.io/badge/Scale-1M+-purple) |
-
-</div>
-
-## 🎯 **Use Cases**
-
-<div align="center">
-
-| 📚 **Research** | 📈 **Finance** | 🏥 **Healthcare** | 📋 **Technical** |
-|:---------------:|:--------------:|:-----------------:|:----------------:|
-| Papers & Theses | Reports & Statements | Medical Records | Manuals & Specs |
-| Citations | Data Tables | Imaging | Diagrams |
-| Figures | Charts | Prescriptions | Schematics |
-
-</div>
-
-## 📁 **Project Structure**
+## 📁 Project Structure
 
 ```
-📦 multimodal-rag/
-├── 🎯 src/
-│   ├── parser.py         # PDF processing engine
-│   ├── indexer.py        # Vector indexing logic
-│   └── retriever.py      # RAG pipeline
-├── 💾 data/
-│   ├── extracted/        # Parsed content
-│   └── vectors/          # Qdrant storage
-├── 🧪 tests/
-├── 📄 README.md
-└── ⚡ quickstart.py
+rag_service/
+├── 📄 rag_service.ipynb    # Main implementation notebook
+├── 📂 extracted/           # Processed document storage
+│   ├── 📝 texts/          # Extracted text content
+│   ├── 📊 tables/         # Detected tables
+│   └── 🖼️ images/         # Extracted images
+└── 📂 tmp/
+    └── 🗃️ llama_multimodal/ # Qdrant vector database
 ```
 
-## 🤝 **Contributing**
+## 🎯 Use Cases
 
-<div align="center">
+- **📚 Research Paper Analysis** - Extract insights from academic papers
+- **📋 Document Q&A** - Interactive querying of large documents  
+- **🔍 Information Retrieval** - Find specific information across document collections
+- **📊 Report Summarization** - Generate summaries from complex reports
+- **🖼️ Visual Document Understanding** - Analyze documents with charts and diagrams
 
-[![Contributors](https://img.shields.io/github/contributors/yourusername/multimodal-rag)](https://github.com/yourusername/multimodal-rag/graphs/contributors)
-[![Issues](https://img.shields.io/github/issues/yourusername/multimodal-rag)](https://github.com/yourusername/multimodal-rag/issues)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+## 🔧 Core Components
 
-</div>
+### PDFParser Class
+```python
+class PDFParser:
+    """Fast, multi-modal PDF content extraction"""
+    - Text extraction (native + OCR)
+    - Table detection and parsing
+    - Image extraction and processing
+    - Metadata preservation
+```
 
-## 📄 **License**
+### Vector Stores
+```python
+# Separate collections for different content types
+text_store = QdrantVectorStore(collection_name="text_collection")
+image_store = QdrantVectorStore(collection_name="image_collection")  
+table_store = QdrantVectorStore(collection_name="table_collection")
+```
 
-MIT License - Use freely in your projects!
+### Multi-Modal Query Engine
+```python
+query_engine = index.as_query_engine(
+    llm=openai_mm_llm,  # GPT-5
+    text_qa_template=qa_template
+)
+```
+
+## 🌟 What Makes It Special
+
+1. **🚀 Speed**: Qdrant's optimized vector operations deliver results in milliseconds
+2. **🎯 Accuracy**: GPT-5's advanced reasoning provides superior answer quality  
+3. **🔧 Simplicity**: Clean, modular code that's easy to understand and modify
+4. **📄 Compatibility**: Handles any PDF format including scanned documents
+5. **🎨 Multi-Modal**: Seamlessly processes text, tables, and images together
 
 ---
 
 <div align="center">
 
-### ⭐ **Star this repo if it powers your AI!** ⭐
+**Ready to revolutionize your document analysis workflow?**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/multimodal-rag?style=social)](https://github.com/yourusername/multimodal-rag)
-[![Follow](https://img.shields.io/twitter/follow/yourusername?style=social)](https://twitter.com/yourusername)
-
-**Built with ❤️ for the AI Community**
+[⭐ Star this repo](https://github.com/yourusername/modular-rag) • [🐛 Report issues](https://github.com/yourusername/modular-rag/issues) • [💡 Request features](https://github.com/yourusername/modular-rag/discussions)
 
 </div>
